@@ -1,4 +1,4 @@
-import React from "react";
+ 
 import validator from "validator";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -39,4 +39,27 @@ res.json( {success: true , token} )
   }
 };
 
-export { registerUser };
+const loginUser = async (req , res) => {
+    try {
+        const {email , password} = req.body;
+        const user = await userModel.findOne({email})
+        if (!user) {
+            return res.json({ success : false , message : "user does not exist"})
+        }
+        const isMatch = await bcrypt.compare( password , user.password )
+        if(isMatch) {
+const token = jwt.sign({ id : user._id } , process.env.SECRET_KEY)
+res.json({ success : true , token })
+        } else{
+            res.json({ success : false , message : "Invalid Credentials" })
+        }
+
+    } catch (error) {
+    res.json({ success: false, message: error.message });
+    }
+}
+
+ 
+ 
+
+export { registerUser , loginUser };
