@@ -4,7 +4,9 @@ import express from  "express"
  import dotenv from "dotenv"
  dotenv.config()
  import connectDB from "./src/config/mongodb.js";
- import authRoute from "./src/routes/authRoutes.js"
+ import authRoute from "./src/routes/authRoutes.js";
+ import noteRoute from "./src/routes/noteRoutes.js";
+ 
 
 
 const app = express();
@@ -16,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/user" , authRoute)
-
+app.use("/api/note" , noteRoute)
 
 // Basic Route
 app.get("/" , (req , res)=> {

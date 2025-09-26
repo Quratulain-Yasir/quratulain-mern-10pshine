@@ -6,6 +6,6 @@ password:{ type:String , required:true , unique:true} ,
 name:{ type:String , required:true}
 }
 
-const userModel = mongoose.model.user || mongoose.model( "user" , userSchema)
+const userModel = mongoose.model.User || mongoose.model( "User" , userSchema)
 
 export default userModel
