@@ -1,5 +1,6 @@
 import noteModel from "../models/noteModel.js";
 
+// Create Notes Api
 const createNote = async (req, res) => {
   try {
     const { title, content, pinned, tags } = req.body;
@@ -36,7 +37,25 @@ const createNote = async (req, res) => {
   }
 };
 
-// PUT /api/notes/:id
+// Read Notes Api
+const getNotes = async (req ,res) => {
+  try {
+    const userId = req.user.id;
+    const notes = await noteModel.find({ user:userId }).sort({ createdAt : -1 })
+  res.status(200).json({
+ success: true, 
+ data: notes
+})
+  } catch (error) {
+     res.status(500).json({
+      success: false,
+      message: "Error Reading note",
+      error: error.message,
+    });
+  }
+}
+
+// Update /api/notes/:id
 const updateNote = async (req, res) => {
   try {
     const { id } = req.params;
@@ -97,4 +116,4 @@ const deleteNote = async (req, res) => {
   }
 };
 
-export { createNote, updateNote, deleteNote };
+export { createNote, updateNote, deleteNote , getNotes };
