@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import pinoHttp from "pino-http";
 import { logger , errorLogger } from "./logger.js" 
+import cors from "cors";
 import connectDB from "./src/config/mongodb.js";
 import authRoute from "./src/routes/authRoutes.js";
 import noteRoute from "./src/routes/noteRoutes.js";
@@ -32,6 +33,7 @@ app.use(pinoHttp({ logger , autoLogging:true }))
 // ✅ Basic Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 // ✅ Routes
 
 app.use("/api/user", authRoute);
