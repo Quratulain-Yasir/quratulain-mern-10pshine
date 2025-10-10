@@ -1,0 +1,82 @@
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react'
+import { toast } from "react-toastify";
+import { AppContext } from '../context/AppContext';
+import { useNavigate } from "react-router-dom"
+
+
+
+
+const  Login = () => { 
+    const [email , setEmail] = useState( )
+    const [password , setPassword] = useState( )
+    
+
+   const { backendUrl , token , setToken } = useContext(AppContext)
+   const navigate = useNavigate()
+
+
+    const HandleDefault = async (e) => {
+        e.preventDefault();
+
+   
+    const {data} = await axios.post( backendUrl  +  "/api/user/login" , {email , password})
+    console.log(data)
+    if(data.success){
+        localStorage.setItem("token" , data.token)
+        setToken(data.token)
+    } else{
+        toast.error(data.message)
+    }
+}
+
+
+useEffect(()=>{
+if(token){
+    navigate('/')
+} 
+} , [token, navigate])
+
+  return (
+    <section>
+            <form onSubmit={HandleDefault} className="min-h-[80vh] flex items-center">
+      <div className="flex flex-col gap-3 m-auto p-8 min-w-[340px] sm:min-w-96 border border-cyan-700 rounded-xl text-zinc-600 text-sm shadow-lg">
+        <h1 className="text-2xl font-semibold">Login</h1>
+        <p>
+          Please Login to access your Notes
+        </p>
+
+ 
+        <div>
+          <label htmlFor="email">Email</label>
+          <input className="border border-cyan-700 rounded w-full p-2 mt-1"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <input className="border border-cyan-700 rounded w-full p-2 mt-1"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        <button className="bg-cyan-700 text-orange-50 w-full py-2 rounded-md text-base" type="submit">
+           Login 
+        </button>
+    
+          <p>
+            Don't have an account?
+            <span onClick={()=>navigate("/signup")} className="text-cyan-700 underline cursor-pointer">sign up</span>
+          </p>
+        
+      </div>
+    </form>
+    </section>
+  )
+}
+
+export default Login
