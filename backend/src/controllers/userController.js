@@ -11,9 +11,13 @@ const registerUser = async (req, res) => {
       return res.json({ success: false, message: "Missing details" });
     }
     if (!validator.isEmail(email)) {
-      return res.json({ sucess: false, message: "enter a valid email" });
+      return res.json({ success: false, message: "enter a valid email" });
     }
-
+      // check if user already exists
+  const userExists = await userModel.findOne({ email });
+  if (userExists) {
+    return res.status(400).json({ message: "User already exists with this email" });
+  }
     if (password.length < 8) {
       return res.json({ success: false, message: "enter a strong password" });
     }
