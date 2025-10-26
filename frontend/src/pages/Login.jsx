@@ -25,8 +25,8 @@ const  Login = () => {
     if(data.success){
         localStorage.setItem("token" , data.token)
         setToken(data.token)
-    } else{
-        toast.error(data.message)
+    } else{ 
+        toast.error("Please log in to continue")
     }
 }
 
