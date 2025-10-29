@@ -3,21 +3,21 @@ import noteModel from "../models/noteModel.js";
 // Create Notes Api
 const createNote = async (req, res) => {
   try {
-    const { title, content, pinned, tags } = req.body;
+    const {content } = req.body;
 
     const userId = req.user.id;
     console.log(userId);
     const noteData = {
-      title,
+      // title,
       content,
       user: userId,
-      pinned: pinned ?? false,
-      tags: tags ?? [],
+      // pinned: pinned ?? false,
+      // tags: tags ?? [],
     };
-    if (!title || !content) {
+    if (!content) {
       return res.status(400).json({
         success: false,
-        message: "Title and content are required",
+        message: "content are required",
       });
     }
 
@@ -48,6 +48,32 @@ const getNotes = async (req ,res) => {
 })
   } catch (error) {
      res.status(500).json({
+      success: false,
+      message: "Error Reading note",
+      error: error.message,
+    });
+  }
+}
+
+// Read One Note Api
+const getOneNote = async (req ,res) => {
+  try {
+    const userId = req.user.id;
+    const noteId = req.params.id;
+     const note = await noteModel.findOne({ _id: noteId, user: userId });
+        if (!note) {
+      return res.status(404).json({
+        success: false,
+        message: "Note not found or not authorized",
+      });
+    }
+
+    res.status(200).json({
+    success: true, 
+    data: note
+      })
+  } catch (error) {
+      res.status(500).json({
       success: false,
       message: "Error Reading note",
       error: error.message,
@@ -116,4 +142,4 @@ const deleteNote = async (req, res) => {
   }
 };
 
-export { createNote, updateNote, deleteNote , getNotes };
+export { createNote, updateNote, deleteNote , getNotes , getOneNote };

@@ -8,18 +8,18 @@ const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
-      return res.json({ success: false, message: "Missing details" });
+      return res.status(400).json({ success: false, message: "Missing details" });
     }
     if (!validator.isEmail(email)) {
-      return res.json({ success: false, message: "enter a valid email" });
+      return res.status(400).json({ success: false, message: "enter a valid email" });
     }
       // check if user already exists
   const userExists = await userModel.findOne({ email });
   if (userExists) {
-    return res.status(400).json({ message: "User already exists with this email" });
+    return res.status(409).json({ message: "User already exists with this email" });
   }
     if (password.length < 8) {
-      return res.json({ success: false, message: "enter a strong password" });
+      return res.status(400).json({ success: false, message: "enter a strong password" });
     }
     //  hash password
     const salt = await bcrypt.genSalt(10);
@@ -36,7 +36,7 @@ const registerUser = async (req, res) => {
 
     // token to send with success msg
 const token = jwt.sign({id:user._id} , process.env.SECRET_KEY)
-res.json( {success: true , token} )
+res.json( {success: true , token , message: "USER created successfully"} )
     // token send
   } catch (error) {
     res.json({ success: false, message: error.message });
@@ -48,7 +48,7 @@ const loginUser = async (req , res) => {
         const {email , password} = req.body;
         const user = await userModel.findOne({email})
         if (!user) {
-            return res.json({ success : false , message : "user does not exist"})
+            return res.status(404).json({ success : false , message : "user does not exist"})
         }
         const isMatch = await bcrypt.compare( password , user.password )
         if(isMatch) {

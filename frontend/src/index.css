@@ -1,1 +1,31 @@
+  @import url('https://fonts.googleapis.com/css2?family=Acme&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
  @import "tailwindcss";
+ 
+ ::selection {
+  background-color: #c1b2e99e; /* Dodger Blue */
+  color: #333333;            /* White text */
+}
+ @layer utilities {
+.app-name{
+  font-family: Acme; 
+}
+.bounce {
+  animation: upDown 1s infinite ease-in-out;
+}
+
+@keyframes upDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+  .cta-btn{
+    /* background-color: ; */
+    color: white;
+    box-shadow: 2px 4px 6px blue;
+  } 
+
+}
