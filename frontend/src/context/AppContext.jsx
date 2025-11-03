@@ -37,7 +37,7 @@ const AppContextProvider = (props) => {
       }
     } catch (error) {
       // log error in console and show toast
-      console.log(error);
+      console.log(error + "disscodanncer");
       toast.error(error.message);
     }
   };
@@ -92,9 +92,11 @@ const deleteNote = async (noteId) => {
   };
 
   //fetch notes list when component first loads
-  useEffect(() => {
+useEffect(() => {
+  if (token && window.location.pathname === "/") {
     getNotesData();
-  }, []);
+  }
+}, [token]);
 
 
 
