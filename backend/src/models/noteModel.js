@@ -7,5 +7,6 @@ import mongoose from 'mongoose' ;
     }, 
      { timestamps: true }); 
     
-    const NoteModel = mongoose.model.Note || mongoose.model('Note', noteSchema);
+    const NoteModel = mongoose.models.Note || mongoose.model('Note', noteSchema);
     export default NoteModel
+    
