@@ -6,6 +6,7 @@ import { SquarePen, Trash } from "lucide-react";
 import { AppContext } from "../context/AppContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import ExportNote from "../components/ExportNote"; 
 
 const ReadSingleNote = () => {
   const [content, setContent] = useState("");
@@ -13,7 +14,7 @@ const ReadSingleNote = () => {
   const { backendUrl, token , getNotesData } = useContext(AppContext);
   const { id } = useParams();
  const navigate = useNavigate()
-  const [note, setNote] = useState([]);
+  const [note, setNote] = useState(null);
   // function to fetch one note data from backend
   const getNoteData = async () => {
     try {
@@ -25,7 +26,7 @@ const ReadSingleNote = () => {
         }
       );
       if (data.success) {
-        setNote(data.data.content);
+        setNote(data.data);
         setContent(data.data.content);
       } else {
         // show error toast if backend returns failure
@@ -45,7 +46,7 @@ const ReadSingleNote = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then(() => {
-        alert("note is updated");
+        toast.success("note is updated");
         getNotesData();  
         navigate("/");
       });
@@ -60,11 +61,14 @@ const ReadSingleNote = () => {
 
   return (
     <section>
-      <div className="w-full min-h-screen py-6 bg-zinc-800">
+      <div className="w-full min-h-screen py-15 bg-zinc-800">
         <div className="sm:p-10 p-5 mx-4 max-w-2xl sm:mx-auto bg-stone-200 rounded-lg shadow-lg hover:shadow-stone-600 duration-400 ease-in-out  active:shadow-stone-600 duration-400 ease-in-out">
+          <div id="note-content">
           <ReactQuill value={content} onChange={setContent} />
-          <button
-            className="inline-flex gap-2 mt-5 px-6 py-3 font-semibold text-white bg-blue-500 rounded-lg shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          </div>
+<div className="inline-flex gap-8 ">
+            <button
+            className="inline-flex gap-2 mt-5 px-6 py-3 font-semibold text-white bg-blue-500 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover: shadow-lg shadow-black/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             onClick={updateNote}
           >
             <SquarePen
@@ -73,6 +77,8 @@ const ReadSingleNote = () => {
             />
             Update Note
           </button>
+          <ExportNote note={note} />
+</div>
         </div>
       </div>
     </section>

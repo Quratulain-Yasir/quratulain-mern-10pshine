@@ -40,7 +40,7 @@ const Sidebar = () => {
           {isOpen && <span>Create Note</span>}
         </Link>
         <Link
-          to="/profile"
+          to="/user-profile"
           className="flex items-center gap-3 hover:bg-zinc-400 rounded p-1"
         >
           <User />
