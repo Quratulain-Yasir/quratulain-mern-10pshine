@@ -6,6 +6,7 @@ import RichTextEditor from "./pages/RichTextEditor";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "../src/components/ProtectedRoute.jsx"; 
 import ReadSingleNote from "./pages/ReadSingleNote.jsx"; 
+import UserProfile from "./pages/UserProfile.jsx";
 
 function App() {
   return (
@@ -36,6 +37,14 @@ function App() {
           element={
             <ProtectedRoute>
               <ReadSingleNote />
+            </ProtectedRoute>
+          }
+        />
+                <Route
+          path="/user-profile"
+          element={
+            <ProtectedRoute>
+              <UserProfile />
             </ProtectedRoute>
           }
         />

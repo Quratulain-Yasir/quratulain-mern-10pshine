@@ -17,6 +17,8 @@ const AppContextProvider = (props) => {
   const [token, setToken] = useState(
     localStorage.getItem("token") ? localStorage.getItem("token") : false
   );
+  
+  const [user, setUser] = useState(null);
 
   // user profile data (for storing user details from backend)
   const [userData, setUserData] = useState(null);
@@ -63,18 +65,20 @@ const deleteNote = async (noteId) => {
 
 
   // function to load logged-in user profile data
-  // const loadUserProfileData = async () => {
-  //     try {
-  //         const {data} = await axios.get(backendUrl , "/api/user/profiledata" , { headers : { token } })
-  //         if(data.success){
-  //             setUserData({ ...data.userData })
-  //         } else {
-  //              toast.error(data.message);
-  //         }
-  //     } catch (error) {
-  //   toast.error(error.message);
-  //     }
-  // }
+      const fetchProfile = async () => {
+      try {
+        const { data } = await axios.get(
+          `${backendUrl}/api/user/user-profile`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        if (data.success) {
+          setUser(data.userData); // ✅ NOTE: use 'userData' (based on your backend JSON)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
   //object that contains all the states and functions
   //this object will be shared with all components using AppContext
@@ -88,7 +92,9 @@ const deleteNote = async (noteId) => {
     backendUrl,
     userData,
     setUserData,
-    // loadUserProfileData
+    user, 
+    setUser , 
+    fetchProfile
   };
 
   //fetch notes list when component first loads
@@ -101,13 +107,13 @@ useEffect(() => {
 
 
   // whenever token changes, decide whether to load user profile or clear it
-  //  useEffect(()=>{
-  //     if(token) {
-  //         loadUserProfileData()
-  //     } else{
-  //         setUserData(null)
-  //     }
-  //  } , [token])
+   useEffect(()=>{
+      if(token) {
+          fetchProfile()
+      } else{
+          setUser(null)
+      }
+   } , [token])
 
   // wrap all child components with AppContext provider
   // this makes "value" object accessible to them
