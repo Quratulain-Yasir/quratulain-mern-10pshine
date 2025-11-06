@@ -80,4 +80,39 @@ const loginUser = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser };
+
+// api to get profile data
+const getProfile = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const userData = await userModel.findById(userId).select("-password");
+    res.json({ success: true, userData });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+// api to update user profile
+const updateProfile = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { name, password , email } = req.body; 
+
+    if (!name || !password || !email ) {
+      return res.json({ success: false, message: "Missing data" });
+    }
+    // save stdData in Stdmodel
+    await userModel.findByIdAndUpdate(userId, {
+      name,
+      email,  
+      password
+    });
+    res.json({ success: true, message: "Profile Updated" });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+ 
+
+export { registerUser, loginUser , getProfile , updateProfile };
