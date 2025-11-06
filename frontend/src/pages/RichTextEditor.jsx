@@ -28,9 +28,15 @@ const saveNote = async () => {
 }
 
 
+
   return (
      <section>
-<div className='w-full min-h-screen py-6 bg-zinc-800'>
+<div className='w-full min-h-screen py-6 px-7 bg-zinc-800'>
+          <button onClick={() => navigate("/")}
+        className="bg-gray-400 hover:bg-gray-300 px-4 py-2 rounded-md mb-8 flex items-center gap-2 transition-all shadow-md shadow-black/30"
+      >
+        ← Back to Dashboard
+      </button>
      <div className="sm:p-10 p-5 mx-4 max-w-2xl sm:mx-auto bg-stone-200 rounded-lg shadow-lg hover:shadow-stone-600 duration-400 ease-in-out  active:shadow-stone-600 duration-400 ease-in-out" >
         <ReactQuill value={content} onChange={setContent} />
             <button className="px-6 py-3 font-semibold text-white bg-green-700 rounded-lg shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700 mt-5" onClick={saveNote}>

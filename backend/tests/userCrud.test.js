@@ -40,37 +40,37 @@ describe("🧾 Note CRUD API", () => {
 // });
 
   // 📄 READ ALL
-//   test("should get all notes", async () => { 
-//  const testUserId = new mongoose.Types.ObjectId("507f1f77bcf86cd799439011");
+  test("should get all notes", async () => { 
+ const testUserId = new mongoose.Types.ObjectId("507f1f77bcf86cd799439011");
 
-//   // 🧩 insert a note for that same user
-//   await Note.create({ content: "First Note", user: testUserId });
+  // 🧩 insert a note for that same user
+  await Note.create({ content: "First Note", user: testUserId });
  
-//   const res = await request(app)
-//     .get("/api/note/read") 
+  const res = await request(app)
+    .get("/api/note/read") 
 
-//   // ✅ check results
-//   expect(res.status).toBe(200);
-//   expect(res.body.data.length).toBeGreaterThan(0);
-// });
+  // ✅ check results
+  expect(res.status).toBe(200);
+  expect(res.body.data.length).toBeGreaterThan(0);
+});
 
    // 📄 READ single
-//      test("should get single note", async () => {  
+     test("should get single note", async () => {  
  
-//     const note = await Note.create({
-//       content: "This is a single note test",
-//       user:  new mongoose.Types.ObjectId("507f1f77bcf86cd799439011")
-//     });
+    const note = await Note.create({
+      content: "This is a single note test",
+      user:  new mongoose.Types.ObjectId("507f1f77bcf86cd799439011")
+    });
  
-//   const res = await request(app)
-//     .get(`/api/note/read-one/${note._id}`) 
+  const res = await request(app)
+    .get(`/api/note/read-one/${note._id}`) 
 
-//   // ✅ check results
-//   expect(res.status).toBe(200);
-//   expect(res.body.success).toBe(true);
-//   expect(res.body.data).toHaveProperty("_id", note._id.toString());
-//   expect(res.body.data).toHaveProperty("content", "This is a single note test");
-// });
+  // ✅ check results
+  expect(res.status).toBe(200);
+  expect(res.body.success).toBe(true);
+  expect(res.body.data).toHaveProperty("_id", note._id.toString());
+  expect(res.body.data).toHaveProperty("content", "This is a single note test");
+});
 
   // ✏️ UPDATE
   test("should update an existing note", async () => { 
@@ -89,18 +89,18 @@ describe("🧾 Note CRUD API", () => {
   });
 
   // ❌ DELETE
-  // test("should delete a note", async () => {
-  //   const note = await Note.create({
-  //     content: "Temporary note",
-  //     user: new mongoose.Types.ObjectId("507f1f77bcf86cd799439011")
-  //   });
+  test("should delete a note", async () => {
+    const note = await Note.create({
+      content: "Temporary note",
+      user: new mongoose.Types.ObjectId("507f1f77bcf86cd799439011")
+    });
 
-  //   const res = await request(app)
-  //     .post(`/api/note/delete/${note._id}`) 
+    const res = await request(app)
+      .post(`/api/note/delete/${note._id}`) 
 
-  //   expect(res.status).toBe(200);
-  //   expect(res.body.message).toBe("Note deleted successfully");
-  // });
+    expect(res.status).toBe(200);
+    expect(res.body.message).toBe("Note deleted successfully");
+  });
 });
 
  
