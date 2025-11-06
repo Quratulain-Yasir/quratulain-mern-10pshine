@@ -82,7 +82,7 @@ const UserProfile = () => {
               </h3>
               {
                 edit ? (
-                     <button onClick={updateUserProfileData} className="bg-red-600 hover:bg-red-500 px-2 py-1 rounded-md transition-all shadow-md shadow-black/30 text-sm">
+                     <button onClick={updateUserProfileData} className="bg-red-600 hover:bg-red-500 px-2tin py-1 rounded-md transition-all shadow-md shadow-black/30 text-sm">
                 Save
               </button>
                 ) :
