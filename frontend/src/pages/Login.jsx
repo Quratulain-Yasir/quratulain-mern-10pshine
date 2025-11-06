@@ -25,6 +25,7 @@ const  Login = () => {
     if(data.success){
         localStorage.setItem("token" , data.token)
         setToken(data.token)
+        toast.success("login successful")
     } else{ 
         toast.error("Please log in to continue")
     }
@@ -34,13 +35,15 @@ const  Login = () => {
 useEffect(()=>{
 if(token){
     navigate('/')
-} 
+} else {
+   navigate("/login")
+}
 } , [token, navigate])
 
   return (
     <section>
             <form onSubmit={HandleDefault} className="min-h-[80vh] flex items-center">
-      <div className="flex flex-col gap-3 m-auto p-8 min-w-[340px] sm:min-w-96 border border-cyan-700 rounded-xl text-zinc-600 text-sm shadow-lg">
+      <div className="flex flex-col gap-3 m-auto p-8 min-w-[340px] sm:min-w-96 border border-blue-700 rounded-xl text-zinc-600 text-sm shadow-lg">
         <h1 className="text-2xl font-semibold">Login</h1>
         <p>
           Please Login to access your Notes
@@ -49,7 +52,7 @@ if(token){
  
         <div>
           <label htmlFor="email">Email</label>
-          <input className="border border-cyan-700 rounded w-full p-2 mt-1"
+          <input className="border border-blue-700 rounded w-full p-2 mt-1"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -57,20 +60,20 @@ if(token){
         </div>
         <div>
           <label htmlFor="password">Password</label>
-          <input className="border border-cyan-700 rounded w-full p-2 mt-1"
+          <input className="border border-blue-700 rounded w-full p-2 mt-1"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
-        <button className="bg-cyan-700 text-orange-50 w-full py-2 rounded-md text-base" type="submit">
+        <button className="bg-blue-700 hover:bg-blue-600 text-orange-50 w-full py-2 rounded-md text-base  hover:scale-105 active:scale-105 transition-all duration-300 ease-in-out" type="submit">
            Login 
         </button>
     
           <p>
             Don't have an account?
-            <span onClick={()=>navigate("/signup")} className="text-cyan-700 underline cursor-pointer">sign up</span>
+            <span onClick={()=>navigate("/signup")} className="text-blue-700 underline cursor-pointer">sign up</span>
           </p>
         
       </div>

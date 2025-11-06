@@ -61,3 +61,5 @@ connectDB();
 app.listen(PORT, () => {
   logger.info(`SERVER IS LISTENING ON PORT ${PORT}`);
 });
+
+export default  app

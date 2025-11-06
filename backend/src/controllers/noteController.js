@@ -7,12 +7,9 @@ const createNote = async (req, res) => {
 
     const userId = req.user.id;
     console.log(userId);
-    const noteData = {
-      // title,
+    const noteData = { 
       content,
-      user: userId,
-      // pinned: pinned ?? false,
-      // tags: tags ?? [],
+      user: userId, 
     };
     if (!content) {
       return res.status(400).json({
@@ -29,12 +26,13 @@ const createNote = async (req, res) => {
       data: note,
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error creating note",
-      error: error.message,
-    });
-  }
+  console.error("❌ Error creating note:", error); // <== add this line
+  res.status(500).json({
+    success: false,
+    message: "Error creating note",
+    error: error.message,
+  });
+}
 };
 
 // Read Notes Api
@@ -47,12 +45,16 @@ const getNotes = async (req ,res) => {
  data: notes
 })
   } catch (error) {
-     res.status(500).json({
-      success: false,
-      message: "Error Reading note",
-      error: error.message,
-    });
-  }
+  console.log("❌ ERROR creating note:", error.message);
+  console.log(error.stack);
+  res.status(500).json({
+    success: false,
+    message: "Error creating note",
+    error: error.message,
+  });
+}
+
+
 }
 
 // Read One Note Api
@@ -129,7 +131,7 @@ const deleteNote = async (req, res) => {
         message: "Note not found or not authorized",
       });
     }
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       message: "Note deleted successfully",
     });
