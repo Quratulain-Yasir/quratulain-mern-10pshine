@@ -53,6 +53,7 @@ if(token){
         <div>
           <label htmlFor="email">Email</label>
           <input className="border border-blue-700 rounded w-full p-2 mt-1"
+           id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -61,6 +62,7 @@ if(token){
         <div>
           <label htmlFor="password">Password</label>
           <input className="border border-blue-700 rounded w-full p-2 mt-1"
+           id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
