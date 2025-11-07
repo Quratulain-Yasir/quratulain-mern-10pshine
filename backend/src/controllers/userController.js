@@ -97,16 +97,15 @@ const getProfile = async (req, res) => {
 const updateProfile = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { name, password , email } = req.body; 
+    const { name , email } = req.body; 
 
-    if (!name || !password || !email ) {
+    if (!name || !email ) {
       return res.json({ success: false, message: "Missing data" });
     }
     // save stdData in Stdmodel
     await userModel.findByIdAndUpdate(userId, {
       name,
-      email,  
-      password
+      email
     });
     res.json({ success: true, message: "Profile Updated" });
   } catch (error) {
