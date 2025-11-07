@@ -1,15 +1,14 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { toast } from "react-toastify"; 
+import { backendUrl } from "../utils/env";
 
 // create a Context object (a shared "data space" for the app)
 export const AppContext = createContext();
 
 // This component wraps the app and provides shared state to all children
 const AppContextProvider = (props) => {
-  // backend API baseURL (taken from .env)
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+ 
 
   // Notes data state (will store list of Notes fetched from backend)
   const [notes, setNotes] = useState([]);

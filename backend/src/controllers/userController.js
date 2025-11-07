@@ -107,7 +107,7 @@ const updateProfile = async (req, res) => {
       name,
       email
     });
-    res.json({ success: true, message: "Profile Updated" });
+    res.status(200).json({ success: true, message: "Profile Updated" });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }

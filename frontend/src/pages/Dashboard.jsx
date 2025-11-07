@@ -1,3 +1,4 @@
+import React from 'react';
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import Navbar from "../components/Navbar.jsx";
@@ -37,6 +38,7 @@ const Dashboard = () => {
                 ></div>
                 <div className="flex justify-end mt-3 gap-3">
                   <Trash
+                   data-testid="delete-icon"
                     onClick={() => deleteNote(note._id)}
                     className="text-red-600 hover:scale-105 active:scale-110 transition-all duration-300 ease-in-out cursor-pointer"
                   />

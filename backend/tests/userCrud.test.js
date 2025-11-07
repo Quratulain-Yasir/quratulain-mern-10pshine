@@ -28,16 +28,16 @@ afterAll(async () => {
 describe("🧾 Note CRUD API", () => { 
 
   // ➕ CREATE
-// test("should create a new note", async () => {
-//   const res = await request(app)
-//     .post("/api/note/create")
-//     .send({
-//       content: "Biscuits are my favorite. I love them because they have the perfect amount of sweetness!",
-//     });
+test("should create a new note", async () => {
+  const res = await request(app)
+    .post("/api/note/create")
+    .send({
+      content: "Biscuits are my favorite. I love them because they have the perfect amount of sweetness!",
+    });
 
-//   expect(res.status).toBe(201);
-//   expect(res.body.message).toBe("Note created successfully");
-// });
+  expect(res.status).toBe(201);
+  expect(res.body.message).toBe("Note created successfully");
+});
 
   // 📄 READ ALL
   test("should get all notes", async () => { 
